@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="station_ids">
+        <item>Station ID 1</item>
+        <item>Station ID 2</item>
+        <item>Station ID 3</item>
+    </string-array>
+
+    <string-array name="sample_dates">
+        <item>2023-12-04 2:20:00 PM</item>
+        <item>2023-01-05 9:05:00 AM</item>
+        <!-- Add more sample dates here if needed -->
+    </string-array>
+
+    <!-- Define the sample_parameters array -->
+    <string-array name="sample_parameters">
+        <item>Parameter 1</item>
+        <item>Parameter 2</item>
+        <item>Parameter 3</item>
+        <!-- Add more parameters here if needed -->
+    </string-array>
+</resources>

@@ -1,0 +1,689 @@
+---
+Metadata:
+  TemplateId: "arn:aws:cloudformation:us-east-1:992382832822:generatedTemplate/ae1908dd-9241-4984-965d-da137f74115f"
+Parameters:
+  LambdaFunction00csci5409lambdaglue00UcPXACodeS3KeyOneOfHF8ec:
+    NoEcho: "true"
+    Type: "String"
+    Description: "The Amazon S3 key of the deployment package.\nThis property can\
+      \ be replaced with other exclusive properties"
+  LambdaFunction00csci5409lambdaglue00UcPXACodeS3BucketOneOfGxQkv:
+    NoEcho: "true"
+    Type: "String"
+    Description: "An Amazon S3 bucket in the same AWS-Region as your function. The\
+      \ bucket can be in a different AWS-account.\nThis property can be replaced with\
+      \ other exclusive properties"
+Resources:
+  EC2NetworkInterfaceAttachment00eniattach067200d0f0e33976100iZCpO:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::NetworkInterfaceAttachment"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkInterfaceId: "eni-04bcc1e9370431124"
+      InstanceId: "i-08464868b0311c3fa"
+      DeviceIndex: "0"
+      DeleteOnTermination: true
+  EC2VPC00vpc03175eb0d7d01c6c100IjpOs:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::VPC"
+    DeletionPolicy: "Delete"
+    Properties:
+      CidrBlock: "172.31.0.0/16"
+      EnableDnsSupport: true
+      InstanceTenancy: "default"
+      EnableDnsHostnames: true
+      Tags: []
+  S3Bucket00b00957180oceanbucket00YYDoq:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: "Delete"
+    Properties:
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        BlockPublicAcls: true
+      BucketName: "b00957180oceanbucket"
+      OwnershipControls:
+        Rules:
+        - ObjectOwnership: "BucketOwnerEnforced"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - BucketKeyEnabled: true
+          ServerSideEncryptionByDefault:
+            SSEAlgorithm: "AES256"
+  ApiGatewayRestApi00dra8ouksr600ZrjLy:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ApiGateway::RestApi"
+    DeletionPolicy: "Delete"
+    Properties:
+      ApiKeySourceType: "HEADER"
+      EndpointConfiguration:
+        Types:
+        - "REGIONAL"
+      DisableExecuteApiEndpoint: false
+      Name: "csci5409_api"
+  EC2Subnet00subnet0612208cc4062bd5200f3zND:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az4"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.16.0/20"
+      Ipv6Native: false
+      Tags: []
+  EC2DHCPOptions00dopt0cdd9917dd1fbfb5900WOIhN:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::DHCPOptions"
+    DeletionPolicy: "Delete"
+    Properties:
+      DomainName: "ec2.internal"
+      DomainNameServers:
+      - "AmazonProvidedDNS"
+      Tags: []
+  EC2Subnet00subnet0f2a6e7f112d34b8000C0qfn:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az5"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.64.0/20"
+      Ipv6Native: false
+      Tags: []
+  EC2Subnet00subnet0870a14c4a1587f3100bQ1eB:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az2"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.80.0/20"
+      Ipv6Native: false
+      Tags: []
+  AthenaWorkGroup00primary00fhnwR:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::Athena::WorkGroup"
+    DeletionPolicy: "Delete"
+    Properties:
+      WorkGroupConfiguration:
+        RequesterPaysEnabled: false
+        EnforceWorkGroupConfiguration: false
+        EngineVersion:
+          SelectedEngineVersion: "AUTO"
+        PublishCloudWatchMetricsEnabled: false
+        ResultConfiguration: {}
+      State: "ENABLED"
+      Tags: []
+      Name: "primary"
+  BackupBackupSelection00eaebc585404d4cfa9d47a1fdd3f9bbff7cc43ff472344d789b58aa53d8570b1600eWVPR:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::Backup::BackupSelection"
+    DeletionPolicy: "Delete"
+    Properties:
+      BackupSelection:
+        ListOfTags: []
+        NotResources: []
+        IamRoleArn: "arn:aws:iam::992382832822:role/LabRole"
+        Resources:
+        - "arn:aws:s3:::*"
+        Conditions:
+          StringEquals: []
+          StringNotLike: []
+          StringLike: []
+          StringNotEquals: []
+        SelectionName: "s3_buckets"
+      BackupPlanId: "7cc43ff4-7234-4d78-9b58-aa53d8570b16"
+  EC2Subnet00subnet0f41905609b1e6fe000CNCfr:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az6"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.32.0/20"
+      Ipv6Native: false
+      Tags: []
+  EC2SubnetNetworkAclAssociation00aclassoc0e7d247db81d645e600hW9vE:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0f41905609b1e6fe000CNCfr"
+  EC2Instance00i08464868b0311c3fa00fhPSz:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Instance"
+    DeletionPolicy: "Delete"
+    Properties:
+      Tenancy: "default"
+      SecurityGroups:
+      - "launch-wizard-1"
+      PrivateIpAddress: "172.31.40.30"
+      InstanceInitiatedShutdownBehavior: "stop"
+      CpuOptions:
+        ThreadsPerCore: 1
+        CoreCount: 1
+      BlockDeviceMappings:
+      - Ebs:
+          SnapshotId: "snap-029f30ded440599ba"
+          VolumeType: "gp3"
+          Iops: 3000
+          VolumeSize: 8
+          Encrypted: false
+          DeleteOnTermination: true
+        DeviceName: "/dev/xvda"
+      AvailabilityZone: "us-east-1a"
+      PrivateDnsNameOptions:
+        EnableResourceNameDnsARecord: true
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      SubnetId:
+        Ref: "EC2Subnet00subnet0f41905609b1e6fe000CNCfr"
+      SecurityGroupIds:
+      - "sg-03fc2798ae98ed93a"
+      EbsOptimized: false
+      DisableApiTermination: false
+      KeyName: "ec2_key"
+      SourceDestCheck: true
+      Volumes:
+      - VolumeId: "vol-026b7f6997c39dd97"
+        Device: "/dev/xvda"
+      PlacementGroupName: ""
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      NetworkInterfaces:
+      - PrivateIpAddresses:
+        - PrivateIpAddress: "172.31.40.30"
+          Primary: true
+        SecondaryPrivateIpAddressCount: 0
+        DeviceIndex: "0"
+        GroupSet:
+        - Ref: "EC2SecurityGroup00sg03fc2798ae98ed93a00ru57h"
+        Ipv6Addresses: []
+        SubnetId:
+          Ref: "EC2Subnet00subnet0f41905609b1e6fe000CNCfr"
+        AssociatePublicIpAddress: true
+        NetworkInterfaceId:
+          Ref: "EC2NetworkInterface00eni04bcc1e937043112400NGekH"
+        DeleteOnTermination: true
+      ImageId: "ami-051f8a213df8bc089"
+      InstanceType: "t2.nano"
+      Monitoring: false
+      Tags:
+      - Value: "b00957180-ocean-runner"
+        Key: "Name"
+      CreditSpecification:
+        CPUCredits: "standard"
+  EC2NetworkInterface00eni04bcc1e937043112400NGekH:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Delete"
+    Properties:
+      Description: ""
+      PrivateIpAddress: "172.31.40.30"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "172.31.40.30"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-03fc2798ae98ed93a"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2Subnet00subnet0f41905609b1e6fe000CNCfr"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+  EC2SubnetNetworkAclAssociation00aclassoc06f00fb8f193abb2000GbWZI:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0612208cc4062bd5200f3zND"
+  EC2VolumeAttachment00vol026b7f6997c39dd97003tv9D:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::VolumeAttachment"
+    DeletionPolicy: "Delete"
+    Properties:
+      InstanceId: "i-08464868b0311c3fa"
+      VolumeId: "vol-026b7f6997c39dd97"
+      Device: "/dev/xvda"
+  EC2SecurityGroup00sg03fc2798ae98ed93a00ru57h:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Delete"
+    Properties:
+      GroupDescription: "launch-wizard-1 created 2024-04-09T10:48:34.944Z"
+      GroupName: "launch-wizard-1"
+      VpcId:
+        Ref: "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+      SecurityGroupIngress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 80
+        ToPort: 80
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 22
+        ToPort: 22
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "tcp"
+        FromPort: 443
+        ToPort: 443
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2SubnetNetworkAclAssociation00aclassoc0a41735484bed032300c6FYm:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0f2a6e7f112d34b8000C0qfn"
+  EC2SecurityGroup00sg0ba4e20d9eae1155c00MgYUl:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SecurityGroup"
+    DeletionPolicy: "Delete"
+    Properties:
+      GroupDescription: "default VPC security group"
+      GroupName: "default"
+      VpcId:
+        Ref: "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+      SecurityGroupIngress:
+      - IpProtocol: "-1"
+        FromPort: -1
+        SourceSecurityGroupId:
+          Fn::GetAtt:
+          - "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+          - "DefaultSecurityGroup"
+        ToPort: -1
+        SourceSecurityGroupOwnerId: "992382832822"
+      SecurityGroupEgress:
+      - CidrIp: "0.0.0.0/0"
+        IpProtocol: "-1"
+        FromPort: -1
+        ToPort: -1
+  EC2NetworkInterfaceAttachment00eniattach0e67ce3e6e1d3a7540047ThT:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::NetworkInterfaceAttachment"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkInterfaceId: "eni-0e46266c21f87891e"
+      DeviceIndex: "1"
+      DeleteOnTermination: false
+  EC2Subnet00subnet0007e029fed27f3ae007fPZy:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az1"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.0.0/20"
+      Ipv6Native: false
+      Tags: []
+  EC2Route00rtb0cb40945c53edf72c00R70CS:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Delete"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0cb40945c53edf72c00R92W6"
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId:
+        Ref: "EC2InternetGateway00igw061e2aa084b3afca300RwDEW"
+      VpcEndpointId: "igw-061e2aa084b3afca3"
+  IAMRole00AWSServiceRoleForECS00hvlZI:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::IAM::Role"
+    DeletionPolicy: "Delete"
+    Properties:
+      Path: "/aws-service-role/ecs.amazonaws.com/"
+      ManagedPolicyArns:
+      - "arn:aws:iam::aws:policy/aws-service-role/AmazonECSServiceRolePolicy"
+      MaxSessionDuration: 3600
+      RoleName: "AWSServiceRoleForECS"
+      Description: "Role to enable Amazon ECS to manage your cluster."
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Action: "sts:AssumeRole"
+          Effect: "Allow"
+          Principal:
+            Service: "ecs.amazonaws.com"
+  EC2SubnetNetworkAclAssociation00aclassoc0f9b1a178abbd616d00HVSKG:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0007e029fed27f3ae007fPZy"
+  S3Bucket00awsglueassets992382832822useast100fAOTb:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: "Delete"
+    Properties:
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        BlockPublicAcls: true
+      BucketName: "aws-glue-assets-992382832822-us-east-1"
+      OwnershipControls:
+        Rules:
+        - ObjectOwnership: "BucketOwnerEnforced"
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - BucketKeyEnabled: false
+          ServerSideEncryptionByDefault:
+            SSEAlgorithm: "AES256"
+  EC2SubnetNetworkAclAssociation00aclassoc0397ff073a58b732c00Emk03:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet01f84b3755ee21eda002U6Lc"
+  EC2Volume00vol026b7f6997c39dd9700ZBq7y:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Volume"
+    DeletionPolicy: "Delete"
+    Properties:
+      MultiAttachEnabled: false
+      SnapshotId: "snap-029f30ded440599ba"
+      VolumeType: "gp3"
+      Encrypted: false
+      Size: 8
+      AutoEnableIO: true
+      AvailabilityZone: "us-east-1a"
+      Throughput: 125
+      Iops: 3000
+      Tags: []
+  EC2SubnetNetworkAclAssociation00aclassoc0d9b247240bd3098f00eK8mo:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::SubnetNetworkAclAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      NetworkAclId:
+        Ref: "EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM"
+      SubnetId:
+        Ref: "EC2Subnet00subnet0870a14c4a1587f3100bQ1eB"
+  EC2InternetGateway00igw061e2aa084b3afca300RwDEW:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::InternetGateway"
+    DeletionPolicy: "Delete"
+    Properties:
+      Tags: []
+  EC2KeyPair00ec2key00HmZhI:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::KeyPair"
+    DeletionPolicy: "Delete"
+    Properties:
+      KeyName: "ec2_key"
+      KeyType: "rsa"
+      PublicKeyMaterial: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC9zH3mVFIadq8LUifrxN/ED299XfgvKSdKgdj1JS5/biw3cRS0vMxwK4e9fnQHRySICWRsrmDppHbHk4px05XaFcxeFW73hnOYoDiBJIrZddI2MTghTBzobNAm++1s/CvhI0LfLwVqsMH49D7iSJzBRpC4f1P2rHewgjL0TAJqogY5OjyMBAAfnHt5WNt6yPUsqI/sKptoCxM7DxomycgANePdljHBKhZnovnPzS0iAgiQFSM+C2EZxRL/BGamk6NNVBzlnuZc3QaP/eoGbT+U2Ph9cw9faXgvrzNaQZo5SnjVcgWdH8W6qlEIgWLWyD1h2batgA8JA5EDS/5J1A/V\
+        \ ec2_key\n"
+      Tags: []
+  ECSTaskDefinition00taskdefinitionoceanbackend100iNeiW:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ECS::TaskDefinition"
+    DeletionPolicy: "Delete"
+    Properties:
+      TaskRoleArn: "arn:aws:iam::992382832822:role/LabRole"
+      InferenceAccelerators: []
+      Memory: "2048"
+      PlacementConstraints: []
+      Cpu: "1024"
+      RequiresCompatibilities:
+      - "FARGATE"
+      NetworkMode: "awsvpc"
+      ExecutionRoleArn: "arn:aws:iam::992382832822:role/LabRole"
+      RuntimePlatform:
+        OperatingSystemFamily: "LINUX"
+        CpuArchitecture: "X86_64"
+      Volumes: []
+      ContainerDefinitions:
+      - ExtraHosts: []
+        Secrets: []
+        VolumesFrom: []
+        Cpu: 0
+        EntryPoint: []
+        DnsServers: []
+        Image: "992382832822.dkr.ecr.us-east-1.amazonaws.com/b00957180_ocean_ecr:latest"
+        Essential: true
+        LogConfiguration:
+          SecretOptions: []
+          Options:
+            awslogs-group: "/ecs/ocean_backend"
+            awslogs-create-group: "true"
+            awslogs-region: "us-east-1"
+            awslogs-stream-prefix: "ecs"
+          LogDriver: "awslogs"
+        ResourceRequirements: []
+        EnvironmentFiles: []
+        Name: "ocean_backend"
+        MountPoints: []
+        DependsOn: []
+        DockerLabels: {}
+        PortMappings:
+        - ContainerPort: 80
+          AppProtocol: "http"
+          Protocol: "tcp"
+          HostPort: 80
+          Name: "ocean_backend-80-tcp"
+        DockerSecurityOptions: []
+        SystemControls: []
+        Command: []
+        DnsSearchDomains: []
+        Environment: []
+        Links: []
+        CredentialSpecs: []
+        Ulimits: []
+      Family: "ocean_backend"
+      Tags: []
+  LambdaFunction00csci5409lambdaglue00UcPXA:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::Lambda::Function"
+    DeletionPolicy: "Delete"
+    Properties:
+      MemorySize: 128
+      Description: ""
+      TracingConfig:
+        Mode: "PassThrough"
+      Timeout: 3
+      RuntimeManagementConfig:
+        UpdateRuntimeOn: "Auto"
+      Handler: "lambda_function.lambda_handler"
+      Code:
+        S3Bucket:
+          Ref: "LambdaFunction00csci5409lambdaglue00UcPXACodeS3BucketOneOfGxQkv"
+        S3Key:
+          Ref: "LambdaFunction00csci5409lambdaglue00UcPXACodeS3KeyOneOfHF8ec"
+      Role: "arn:aws:iam::992382832822:role/LabRole"
+      FileSystemConfigs: []
+      FunctionName: "csci5409-lambda-glue"
+      Runtime: "python3.12"
+      PackageType: "Zip"
+      LoggingConfig:
+        LogFormat: "Text"
+        LogGroup: "/aws/lambda/csci5409-lambda-glue"
+      EphemeralStorage:
+        Size: 512
+      Architectures:
+      - "x86_64"
+  EC2RouteTable00rtb0cb40945c53edf72c00R92W6:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::RouteTable"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+  EC2NetworkAcl00acl0b2cf2b9aa8c0cf2d00AvfoM:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::NetworkAcl"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+      Tags: []
+  ApiGatewayDeployment00iacj7l0091PAM:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ApiGateway::Deployment"
+    DeletionPolicy: "Delete"
+    Properties:
+      RestApiId:
+        Ref: "ApiGatewayRestApi00dra8ouksr600ZrjLy"
+  ECSClusterCapacityProviderAssociations00csci5409oceancluster00vqeAc:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ECS::ClusterCapacityProviderAssociations"
+    DeletionPolicy: "Delete"
+    Properties:
+      CapacityProviders:
+      - "FARGATE"
+      - "FARGATE_SPOT"
+      Cluster: "csci5409_ocean_cluster"
+      DefaultCapacityProviderStrategy: []
+  ECRRepository00b00957180oceanecr005YnIc:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ECR::Repository"
+    DeletionPolicy: "Delete"
+    Properties:
+      ImageScanningConfiguration:
+        ScanOnPush: false
+      RepositoryName: "b00957180_ocean_ecr"
+      EncryptionConfiguration:
+        EncryptionType: "AES256"
+      Tags: []
+      ImageTagMutability: "MUTABLE"
+  EC2Subnet00subnet01f84b3755ee21eda002U6Lc:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Subnet"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId: "vpc-03175eb0d7d01c6c1"
+      MapPublicIpOnLaunch: true
+      EnableDns64: false
+      AvailabilityZoneId: "use1-az3"
+      PrivateDnsNameOptionsOnLaunch:
+        EnableResourceNameDnsARecord: false
+        HostnameType: "ip-name"
+        EnableResourceNameDnsAAAARecord: false
+      CidrBlock: "172.31.48.0/20"
+      Ipv6Native: false
+      Tags: []
+  ApiGatewayStage00csci5409deployedstage00nM0cP:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::ApiGateway::Stage"
+    DeletionPolicy: "Delete"
+    Properties:
+      RestApiId:
+        Ref: "ApiGatewayRestApi00dra8ouksr600ZrjLy"
+      DeploymentId:
+        Fn::GetAtt:
+        - "ApiGatewayDeployment00iacj7l0091PAM"
+        - "DeploymentId"
+      StageName: "csci5409_deployed_stage"
+      CacheClusterSize: "0.5"
+      TracingEnabled: false
+      CacheClusterEnabled: false
+  EC2Route00rtb0cb40945c53edf72c003MU3V:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::Route"
+    DeletionPolicy: "Delete"
+    Properties:
+      RouteTableId:
+        Ref: "EC2RouteTable00rtb0cb40945c53edf72c00R92W6"
+      DestinationCidrBlock:
+        Fn::GetAtt:
+        - "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+        - "CidrBlock"
+      GatewayId: "local"
+      VpcEndpointId: "local"
+  EC2VPCDHCPOptionsAssociation00vpc03175eb0d7d01c6c100ZLpFl:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::VPCDHCPOptionsAssociation"
+    DeletionPolicy: "Delete"
+    Properties:
+      VpcId:
+        Ref: "EC2VPC00vpc03175eb0d7d01c6c100IjpOs"
+      DhcpOptionsId:
+        Ref: "EC2DHCPOptions00dopt0cdd9917dd1fbfb5900WOIhN"
+  EC2NetworkInterface00eni0e46266c21f87891e00wIU8j:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::EC2::NetworkInterface"
+    DeletionPolicy: "Delete"
+    Properties:
+      Description: "arn:aws:ecs:us-east-1:992382832822:attachment/88e151f3-27b7-4f57-81c3-1f26159e7837"
+      PrivateIpAddress: "172.31.63.244"
+      PrivateIpAddresses:
+      - PrivateIpAddress: "172.31.63.244"
+        Primary: true
+      SecondaryPrivateIpAddressCount: 0
+      Ipv6PrefixCount: 0
+      Ipv4Prefixes: []
+      Ipv4PrefixCount: 0
+      GroupSet:
+      - "sg-0b70d292aed901273"
+      Ipv6Prefixes: []
+      SubnetId:
+        Ref: "EC2Subnet00subnet01f84b3755ee21eda002U6Lc"
+      SourceDestCheck: true
+      InterfaceType: "interface"
+      Tags: []
+  LambdaPermission00functioncsci5409lambdaglue00qtFlO:
+    UpdateReplacePolicy: "Delete"
+    Type: "AWS::Lambda::Permission"
+    DeletionPolicy: "Delete"
+    Properties:
+      FunctionName:
+        Fn::GetAtt:
+        - "LambdaFunction00csci5409lambdaglue00UcPXA"
+        - "Arn"
+      Action: "lambda:InvokeFunction"
+      SourceArn: "arn:aws:execute-api:us-east-1:992382832822:dra8ouksr6/*/POST/start/glue_job"
+      Principal: "apigateway.amazonaws.com"

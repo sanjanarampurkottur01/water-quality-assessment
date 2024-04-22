@@ -1,0 +1,72 @@
+<!-- activity_main.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/station_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:text="Station Id:"/>
+    <Spinner
+        android:id="@+id/spinnerStation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:entries="@array/station_ids"
+        android:layout_below="@id/station_label"/>
+
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerStation"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold|italic"
+        android:text="Date" />
+    <Spinner
+        android:id="@+id/spinnerDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_label"
+        android:layout_margin="16dp"
+        android:entries="@array/sample_dates" />
+
+    <Button
+        android:id="@+id/btnFetchParameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerDate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Fetch Parameter" />
+
+    <TextView
+        android:id="@+id/tvParameter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnFetchParameter"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Parameters: "
+        android:textSize="18sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tvParameter">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/parametersList"
+            android:background="#ECEFF1"/>
+
+    </ScrollView>
+
+</RelativeLayout>

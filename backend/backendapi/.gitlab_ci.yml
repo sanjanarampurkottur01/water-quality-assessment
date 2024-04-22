@@ -1,0 +1,26 @@
+deploy-to-ecr:
+  tags: ["ocean-ecs"]
+  image:
+    name: amazon/aws-cli
+    entrypoint: [""]
+  services:
+    - docker:dind
+  script:
+    variables:
+      ECR_REGISTRY: 992382832822.dkr.ecr.us-east-1.amazonaws.com/b00957180_ocean_ecr
+      DOCKER_HOST: tcp://docker:2375
+      DOCKER_TLS_CERTDIR: ""
+      IMAGE_NAME: "ocean_backend"
+    before_script:
+      - amazon-linux-extras install docker
+      - aws configure set region $AWS_REGION
+      - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+      - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+      - aws configure set aws_session_token $AWS_SESSION_TOKEN
+    script:
+      - docker build -t $ECR_REGISTRY/$IMAGE_NAME .
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+      - docker push $ECR_REGISTRY/$IMAGE_NAME
+      - aws ecs update-service --cluster <cluster> --service <service> --force-new-deployment
+  only:
+    - main
